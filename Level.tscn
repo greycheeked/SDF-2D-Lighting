@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://t3j7j6ws0qrb"]
+
+[ext_resource type="Script" path="res://Level.gd" id="1_chyor"]
+[ext_resource type="Texture2D" uid="uid://bmi7i02f3xddm" path="res://icon.svg" id="2_cb1ak"]
+[ext_resource type="Shader" path="res://SDF_Lighting.gdshader" id="3_b5o1w"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fcgs"]
+polygon = PackedVector2Array(-47, -16, -41, -8.5, -40, 27, -35, 35, -28, 39.5, -17, 42.5, -7.5, 45, 3, 45, 14, 43, 24, 40.5, 33, 36, 39.5, 30, 41, 20.5, 41, -9.5, 46, -17, 38, -27.5, 30.5, -23, 21.5, -29.5, 22, -39.5, 10, -44, 6, -35.5, -4.5, -35.5, -10, -44.5, -21.5, -39.5, -21.5, -29.5, -29.5, -23.5, -38, -27)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wuh2n"]
+shader = ExtResource("3_b5o1w")
+shader_parameter/light_n = 0
+shader_parameter/light_pos = null
+shader_parameter/light_col = null
+shader_parameter/light_rng = null
+shader_parameter/light_ang = null
+shader_parameter/light_fan_ang = null
+shader_parameter/zoom = null
+shader_parameter/rotation = null
+shader_parameter/comp_mat = null
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_chyor")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+ignore_rotation = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(642, 358)
+scale = Vector2(2, 2)
+texture = ExtResource("2_cb1ak")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_7fcgs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LightAndShadow" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_wuh2n")
+offset_right = 1280.0
+offset_bottom = 720.0
